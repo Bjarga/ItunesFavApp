@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# iTunes Search App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+The iTunes Search App allows users to search for various media types including music, movies, podcasts, and more, using the iTunes Search API. Users can also manage their favorite selections within the app.
 
-In the project directory, you can run:
+## How to Use the App
 
-### `npm start`
+To use the iTunes Search App, simply enter a search term in the search bar, select the media type from the dropdown menu, and click the "Search" button. The app will display search results based on your query. You can add items to your favorites or remove them by clicking the corresponding button in the favourites list.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js installed on your local machine
+- Access to the internet to fetch resources from the iTunes Search API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Steps to Install and Run the App
 
-### `npm run build`
+    Using concurrently to install dependencies and start both server and frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the Repository**
+   [GitHub Repository](https://github.com/Bjarga/ItunesFavApp)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install Dependencies**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - Run the following command in the root directory:
 
-### `npm run eject`
+     ```sh
+     npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+     ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Start the Server and Application**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   Run the following command in the root directory
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```sh
+   npm start
 
-## Learn More
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. **Security Measures**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Helmet: The server uses Helmet to enhance security by setting various HTTP headers.
+API Keys: All API keys are stored in environment variables.
+CORS: Configured to accept requests only from domains that host the frontend.
 
-### Code Splitting
+5. ## Accessing the App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   The application is deployed and can be accessed online through Vercel at the following URL:
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   [View Live App](https://itunes-fav-app-94zs.vercel.app/)

@@ -1,7 +1,7 @@
 import React from "react";
 
-// Component to display an individual favorite item
-const FavoriteItem = ({ item, removeFromFavorites }) => {
+// Component to render individual favorite items
+function FavoriteItem({ item, onRemove }) {
   return (
     <div className="favoriteItem">
       {/* Image of the favorite item with alt text using the track's name */}
@@ -12,19 +12,18 @@ const FavoriteItem = ({ item, removeFromFavorites }) => {
       />
       {/* Container for the details of the favorite item */}
       <div className="favoriteItemDetails">
-        {/* Display the track name in bold */}
         <div style={{ fontWeight: "bold" }}>{item.trackName}</div>
         {/* Display the artist name */}
         <div>{item.artistName}</div>
         {/* Conditionally display the collection name if it exists */}
         {item.collectionName && <div>{item.collectionName}</div>}
         {/* Button to remove the item from favorites */}
-        <button onClick={() => removeFromFavorites(item)} className="button">
+        <button onClick={onRemove} className="button">
           Remove
         </button>
       </div>
     </div>
   );
-};
+}
 
 export default FavoriteItem;

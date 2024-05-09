@@ -1,6 +1,5 @@
 // Import necessary React hooks, axios for HTTP requests, and components.
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import ResultsDisplay from "./components/ResultsDisplay";
 import FavoritesDisplay from "./components/FavoritesDisplay";
@@ -10,50 +9,42 @@ function App() {
   // State to hold search results
   const [results, setResults] = useState([]);
   // State to hold favorites
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = localStorage.getItem("favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
 
-  // Load favorites from local storage on initial render
-  useEffect(() => {
-    const loadedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(loadedFavorites);
-  }, []);
-
-  // Save favorites to local storage whenever favorites state changes
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-  // Function to handle search requests
+  // Function to handle search and fetch data from backend API
   const handleSearch = async (term, media) => {
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-    if (!API_BASE_URL) {
-      console.error("API_BASE_URL is not defined.");
-      alert("Server configuration error. Please try again later.");
-      return;
-    }
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/search`, {
-        params: { term, media },
-      });
-      setResults(response.data.results);
+      const response = await fetch(`/api/search?term=${term}&media=${media}`);
+      const data = await response.json();
+      setResults(data.results || []);
     } catch (error) {
-      console.error("Failed to fetch data:", error);
-      alert("Failed to fetch data. Please check your network connection and try again.");
+      console.error("Error fetching data:", error);
       setResults([]);
     }
   };
 
-  // Function to toggle favorites
-  const handleToggleFavorite = (item) => {
-    const updatedFavorites = favorites.some((fav) => fav.trackId === item.trackId)
-      ? favorites.filter((fav) => fav.trackId !== item.trackId)
-      : [...favorites, item];
-    setFavorites(updatedFavorites);
+  // Function to add an item to favorites
+  const addToFavorites = (item) => {
+    setFavorites((prevFavorites) => {
+      if (!prevFavorites.find((fav) => fav.trackId === item.trackId)) {
+        return [...prevFavorites, item];
+      }
+      return prevFavorites;
+    });
   };
 
   // Function to remove an item from favorites
-  const removeFromFavorites = (item) => {
-    setFavorites(favorites.filter((fav) => fav.trackId !== item.trackId));
+  const removeFromFavorites = (itemId) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.filter((item) => item.trackId !== itemId)
+    );
   };
 
   return (
@@ -61,11 +52,18 @@ function App() {
       <div className="column searchColumn">
         <h1>iTunes Search App</h1>
         <SearchBar onSearch={handleSearch} />
-        <ResultsDisplay results={results} favorites={favorites} onToggleFavorite={handleToggleFavorite} />
+        <ResultsDisplay
+          results={results}
+          favorites={favorites}
+          onToggleFavorite={addToFavorites}
+        />
       </div>
       <div className="column favoritesColumn">
         <h1 className="Fav-heading">Selected Favorites</h1>
-        <FavoritesDisplay favorites={favorites} removeFromFavorites={removeFromFavorites} />
+        <FavoritesDisplay
+          favorites={favorites}
+          onRemove={removeFromFavorites}
+        />
       </div>
     </div>
   );

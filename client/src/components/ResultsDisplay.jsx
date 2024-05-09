@@ -13,17 +13,20 @@ function ResultsDisplay({ results, favorites, onToggleFavorite }) {
           <div>{item.trackName}</div>
           {/* Display the artist name */}
           <div>{item.artistName}</div>
-          {/* Button to add or remove the item from favorites */}
           <button
             // Event handler to toggle favorite status
             onClick={() => onToggleFavorite(item)}
             className={`button ${
               // Conditional class to style button based on favorite status
-              favorites.some((fav) => fav.trackId === item.trackId) ? "favorite" : ""
+              favorites.some((fav) => fav.trackId === item.trackId)
+                ? "favorite"
+                : ""
             }`}
           >
             {/* Conditional rendering of button text based on favorite status */}
-            {favorites.some((fav) => fav.trackId === item.trackId) ? "Remove from Favorites" : "Add to Favorites"}
+            {favorites.some((fav) => fav.trackId === item.trackId)
+              ? "In Favorites"
+              : "Add to Favorites"}
           </button>
         </div>
       ))}

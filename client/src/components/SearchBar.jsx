@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 
-// Defines a functional component SearchBar that accepts an onSearch function as its prop
+// SearchBar component for searching iTunes
 function SearchBar({ onSearch }) {
-  // State to store the search term, initially an empty string
   const [term, setTerm] = useState("");
-  // State to store the selected media type, initially set to 'all'
-  const [media, setMedia] = useState("all");
+  const [media, setMedia] = useState("music");
 
-  // Handles form submission to prevent default form behavior and execute the search
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSearch(term, media); // Calls the onSearch function passed via props with current term and media
+  // Function to handle form submission and initiate search
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    onSearch(term, media);
   };
-
   // Renders the search bar form
   return (
     <form
-      // Connects the form submission to the handleSubmit function
       onSubmit={handleSubmit}
       style={{ display: "flex", gap: "10px", marginBottom: "20px" }}
     >
@@ -26,7 +22,7 @@ function SearchBar({ onSearch }) {
         value={term}
         // Updates the term state on input change
         onChange={(e) => setTerm(e.target.value)}
-        placeholder="Search..."
+        placeholder="Search term"
         className="searchInput"
       />
       {/* Select dropdown to choose the media type */}
@@ -34,7 +30,7 @@ function SearchBar({ onSearch }) {
         value={media}
         // Updates the media state when selection changes
         onChange={(e) => setMedia(e.target.value)}
-        className="searchSelect"
+        className="mediaSelect"
       >
         {/* Options for media type */}
         <option value="all">All</option>
