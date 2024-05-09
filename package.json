@@ -1,10 +1,12 @@
 {
-  "name": "itunesapp",
+  "name": "itunesfav",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"node start.js\" \"npm run start --prefix ./client\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm install --prefix ./server && npm install --prefix ./client"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-validator": "^7.0.1",
     "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
